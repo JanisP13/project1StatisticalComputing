@@ -10,10 +10,11 @@ remotes::install_github("dslc-io/tidytuesdayR")
 library(tidytuesdayR)
 #install.packages("here")
 library("here")
-library("tidyverse")
+library(tidyverse)
 library(cowplot)
 library(lubridate)
 library(ggplot2)
+library(ggbeeswarm)
 ```
 
 ```{r}
@@ -352,3 +353,38 @@ scores%>%
   
 
 ```
+
+# Part 5: Make the worst plot you can!
+
+```{r}
+#install.packages('remotes')
+#remotes::install_github("coolbutuseless/geomlime")
+library(geomlime)
+#install.packages("ggpubr")
+library(ggpubr)
+scores%>%
+  ggplot(aes(x = review_date, y = mean_score, size = feature, color = feature))+
+  geom_lime()+
+  labs(
+    title = "Feature Scores Overtime",
+    subtitle = "The mean scores of each chocolate feature overtime.",
+    caption = "By Janis Prak for Statistical Computing",
+    x = "Year of Review",
+    y = "Mean score of each feature"
+  )+
+  theme_cowplot()+
+  geom_smooth(linewidth = 5, se = FALSE)+
+  scale_x_continuous(breaks = seq(2006, 2022, by = 3))+
+  scale_y_continuous(breaks = seq(-0.1,5.0, by = 0.444233))+
+  theme(axis.text.x = element_text(angle = 180, vjust = 1, hjust = 5), legend.position = "inside")
+```
+
+All the crazy things I did:
+1. I made all the points limes. This is likely to never be useful unless I am plotting sales of limeade or something...
+2. I flipped the x-axis. This function is useful for maing the labels tilted so that you can plot larger break labels.
+3. I differentiated the features by size so that it's indistinguishable. This could be useful for other plots like if you were plotting the prevalence of something on a map.
+4. I put the legend inside the plot. In another plot where there is empty space within the plot, this would save space.
+5. I made the best fit lines real thick. Adjusting the size of these lines would be really useful in case the default is too thick or thin.
+6. I made the y-axis extra anbiguous by changing the breaks into weird long decimal intervals. If it wasn't already hard to read with the limes, it's extra hard now. Changing breaks is actually really important to properly visualize data though!
+7. I placed the x-axis labels not on the tick marks, so it's confusing as to what the ticks mean. This could be useful if you had data that the label would make sense for between the ticks.
+
