@@ -197,9 +197,11 @@ cont_chocolate_10 <- chocolate%>%
 cont_chocolate <- chocolate%>%
   filter(country_of_bean_origin %in% cont_chocolate_10$country_of_bean_origin)%>%
   filter(country_of_bean_origin != "Blend")
-  
+view(cont_chocolate)
+view(gapminder_unfiltered)
+
 # joining gapminder and chocolate
-cont <-left_join(cont_chocolate, gapminder_unfiltered, by = c("country_of_bean_origin" = "country"))
+cont <-left_join(cont_chocolate, gapminder_unfiltered, by = c("country_of_bean_origin" = "country"), relationship = "many-to-many")
 view(cont)
 
 #check for na
@@ -327,6 +329,7 @@ scores <- scores%>%
     names_to = "feature",
     values_to = "mean_score"
 )
+scores
 ```
 
 # Part 4: Data visualization
