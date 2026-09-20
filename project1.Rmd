@@ -388,3 +388,34 @@ All the crazy things I did:
 6. I made the y-axis extra anbiguous by changing the breaks into weird long decimal intervals. If it wasn't already hard to read with the limes, it's extra hard now. Changing breaks is actually really important to properly visualize data though!
 7. I placed the x-axis labels not on the tick marks, so it's confusing as to what the ticks mean. This could be useful if you had data that the label would make sense for between the ticks.
 
+# Part 6: Make my plot a better plot!
+
+```{r}
+view(chocolate)
+chocolate %>%
+  ggplot(aes(x = as.factor(review_date), y = rating)) +
+  geom_violin(draw_quantiles = c(0.25,.5,.75), fill = "pink")+
+  geom_count(aes(color = after_stat(n)), alpha = 0.7)+
+  theme_minimal()+
+  scale_color_viridis_c(option = "plasma")+
+  labs(
+    title = "Chocolate Ratings Increase Overtime",
+    x = "Year of Review",
+    y = "Rating"
+  )+
+  #geom_jitter(width = 0.1, alpha = 0.2)+
+  guides(
+    color = guide_legend(title = "Count"),
+    size = guide_legend(title = "Count")
+  )
+```
+
+1. I changed the x and y axis title.
+2. I added a title. 
+I added quartiles to each violin plot so you can more easily see the median/center of data.
+3. I took out the fill according to year because it was useless.
+4. I added the counts so you can see more about where most of the data is.
+5. I colored the count circles to more easily distinguish the sizes of the circles.
+6. I combined the legends for color and size to make it easier to read.
+7. I colored the violin plots pink to make it more distinguished from the background.
+8. I made the geom_count() plot a little transparent so you could still see the quartile lines.
