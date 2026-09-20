@@ -169,6 +169,7 @@ choco_perc_rating%>%
   geom_boxplot()+
   facet_wrap(~country_of_bean_origin)+
   labs(
+    title = ""
     x = "Cocoa Percentage",
     y = "Ratings"
   )+
@@ -228,8 +229,10 @@ cont <- cont%>%
 #view(cont)
 cont%>%
   ggplot(aes(x = continent, y = rating))+
-  geom_violin()+
-  geom_quasirandom()
+  geom_violin(draw_quantiles = c(.25,.5,.75), fill = "pink")+
+  labs(
+    title = "Distribution of Rating by Continent of Origin"
+  )
 
 ```
 
