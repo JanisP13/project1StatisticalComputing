@@ -169,7 +169,6 @@ choco_perc_rating%>%
   geom_boxplot()+
   facet_wrap(~country_of_bean_origin)+
   labs(
-    title = ""
     x = "Cocoa Percentage",
     y = "Ratings"
   )+
